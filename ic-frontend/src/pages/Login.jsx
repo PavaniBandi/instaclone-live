@@ -1,15 +1,25 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer.jsx";
+import { apiRequest } from "../api.jsx";
 
-export default function Login() {
+export default function Login({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    try {
+      const res = await apiRequest("/auth/login", "POST", { email, password });
+      localStorage.setItem("token", res.token);
+      setToken(res.token);
+      navigate("/");
+    } catch (err) {
+      setError("Login Failed");
+    }
   };
 
   return (

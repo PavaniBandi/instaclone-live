@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer.jsx";
+import { apiRequest } from "../api.jsx";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -9,10 +10,22 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    try {
+      await apiRequest("/auth/signup", "POST", {
+        email,
+        username,
+        password,
+        fullName,
+      });
+      navigate("/login");
+    } catch (err) {
+      setError("Signup Failed");
+    }
   };
 
   return (
