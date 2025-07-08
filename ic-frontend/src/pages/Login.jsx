@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "../components/Footer.jsx";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -52,11 +54,45 @@ export default function Login() {
                 >
                   Log in
                 </button>
+                <div className="flex items-center my-3">
+                  <div className="flex-1 h-px bg-gray-300" />
+                  <span className="mx-3 text-gray-400 text-xs font-semibold">
+                    OR
+                  </span>
+                  <div className="flex-1 h-px bg-gray-300" />
+                </div>
+                <button
+                  type="button"
+                  className="w-full flex items-center justify-center text-blue-900 font-semibold mb-2"
+                  disabled
+                >
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M22.675 0h-21.35c-.733 0-1.325.592-1.325 1.326v21.348c0 .733.592 1.326 1.325 1.326h11.495v-9.294h-3.128v-3.622h3.128v-2.672c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.326V1.326C24 .592 23.405 0 22.675 0" />
+                  </svg>
+                  Log in with Facebook
+                </button>
+                <div className="text-xs text-blue-900 text-center mb-2 cursor-pointer">
+                  Forgotten your password?
+                </div>
               </form>
+            </div>
+            <div className="bg-white border border-gray-200 rounded mt-4 px-10 py-6 w-full max-w-sm text-center mx-auto">
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                className="text-blue-500 font-semibold hover:underline"
+              >
+                Sign up
+              </Link>
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
