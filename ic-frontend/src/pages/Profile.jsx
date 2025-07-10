@@ -1,3 +1,9 @@
-export default function Profile() {
-  return <div>Profile</div>;
+import Layout from "../components/Layout";
+
+export default function Profile(token) {
+  return (
+    <Layout token={token}>
+      <div>Profile</div>
+    </Layout>
+  );
 }
