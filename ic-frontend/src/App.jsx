@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,6 +14,15 @@ import Profile from "./pages/Profile.jsx";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
+
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+  }, []);
+
+  const handlelogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+  };
   return (
     <Router>
       <Routes>
@@ -27,17 +36,33 @@ function App() {
         />
         <Route
           path="/"
-          element={token ? <Feed token={token} /> : <Navigate to="/login" />}
+          element={
+            token ? (
+              <Feed token={token} onLogout={handlelogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/create"
           element={
-            token ? <CreatePost token={token} /> : <Navigate to="/login" />
+            token ? (
+              <CreatePost token={token} onLogout={handlelogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route
           path="/profile/:userId"
-          element={token ? <Profile token={token} /> : <Navigate to="/login" />}
+          element={
+            token ? (
+              <Profile token={token} onLogout={handlelogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
       </Routes>
     </Router>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.ic_backend.dto.UserDto;
 import com.example.ic_backend.entity.User;
+import com.example.ic_backend.repository.PostRepository;
 import com.example.ic_backend.repository.UserRepository;
 
 @Service
@@ -17,6 +18,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PostRepository postRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -48,7 +52,7 @@ public class UserService {
     public UserDto getUserProfile(Long userId, Long currentUserId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         UserDto userDto = convertToDto(user);
-        userDto.setPostsCount(0);//Needs Update
+        userDto.setPostsCount(postRepository.countByUserId(userId).intValue());//Needs Update
 
         if (currentUserId != null && !currentUserId.equals(userId)) {
             User currentUser = userRepository.findById(currentUserId).orElseThrow(() -> new RuntimeException("User not found"));
