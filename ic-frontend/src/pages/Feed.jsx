@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { apiRequest } from "../api";
 import Layout from "../components/Layout";
+import { Link } from "react-router-dom";
 
 export default function Feed({ token, onLogout }) {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState("");
+
+  const [commentingPost, setCommentingPost] = useState(null);
+  const [commentText, setCommentText] = useState("");
 
   useEffect(() => {
     fetchPosts();

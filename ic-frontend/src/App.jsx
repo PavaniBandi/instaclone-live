@@ -11,6 +11,7 @@ import Signup from "./pages/Signup.jsx";
 import Feed from "./pages/Feed.jsx";
 import CreatePost from "./pages/CreatePost.jsx";
 import Profile from "./pages/Profile.jsx";
+import PostDetail from "./pages/PostDetail.jsx";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -59,6 +60,16 @@ function App() {
           element={
             token ? (
               <Profile token={token} onLogout={handlelogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/post/:postId"
+          element={
+            token ? (
+              <PostDetail token={token} onLogout={handlelogout} />
             ) : (
               <Navigate to="/login" />
             )
